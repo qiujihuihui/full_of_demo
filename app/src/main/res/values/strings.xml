@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">full_of_demo</string>
+
+    <string name="main_click_test">点击</string>
 </resources>
