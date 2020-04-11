@@ -1,5 +1,6 @@
 package com.full.demo.businessdemo.recycleview;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,10 +8,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.full.demo.R;
 
@@ -19,7 +22,7 @@ import java.util.List;
 
 public class RecyclerViewDemoFragment extends Fragment {
 
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     private RecyclerDemoAdapter demoAdapter;
     private List<String> titlesList = new ArrayList<>();
@@ -34,10 +37,22 @@ public class RecyclerViewDemoFragment extends Fragment {
     }
 
     private void initRecyclerView(){
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+//        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         demoAdapter = new RecyclerDemoAdapter(getActivity(), titlesList);
         recyclerView.setAdapter(demoAdapter);
+        demoAdapter.setOnItemsClickListener(new OnItemsClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                new AlertDialog.Builder(getActivity()).setTitle("删除？").setPositiveButton("确定", (dialogInterface, i) -> demoAdapter.removeItem(position)).show();
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+
+            }
+        });
     }
 
     @Override
