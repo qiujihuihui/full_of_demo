@@ -3,4 +3,9 @@
 
     <string name="main_click_test">点击</string>
     <string name="title_custom_notification_fold">测试自动展开</string>
+    <string name="content_drawer_layout">抽屉侧滑</string>
+    <string name="toolbar_title_search">搜索</string>
+    <string name="toolbar_title_share">分享</string>
+    <string name="toolbar_title_setting">设置</string>
+    <string name="toolbar_title_main_page">首页</string>
 </resources>
