@@ -34,4 +34,5 @@ dependencies {
     implementation 'me.tatarka:gradle-retrolambda:3.6.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'
+    implementation 'com.google.android.material:material:1.2.0-alpha05'
 }

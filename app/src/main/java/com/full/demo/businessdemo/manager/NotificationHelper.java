@@ -6,12 +6,16 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.widget.RemoteViews;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.Person;
+import androidx.core.app.TaskStackBuilder;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.IconCompat;
 
 import com.full.demo.R;
 import com.full.demo.businessdemo.BaseTestActivity;
@@ -55,39 +59,83 @@ public class NotificationHelper {
         getNotificationManager(context).notify(randomNotifyId(), builder.build());
     }
 
-    // Higher Android System Version
+    // >= Android 8.0 (26)
     public static void showHigherVersionNotification(Context context) {
-        //通知渠道的ID
-        String id = "channel_demo";
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            //用户可以看到的通知渠道的名字
-            CharSequence name = context.getString(R.string.app_name);
-            //用户可看到的通知描述
-            String description = context.getString(R.string.main_click_test);
-            //构建NotificationChannel实例
-            NotificationChannel notificationChannel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
-            //配置通知渠道的属性
-            notificationChannel.setDescription(description);
-            //设置通知出现时的闪光灯
-            notificationChannel.enableLights(true);
-            notificationChannel.setLightColor(Color.RED);
-            //设置通知出现时的震动
-            notificationChannel.enableVibration(true);
-            notificationChannel.setVibrationPattern(new long[]{100, 200, 300, 400, 500, 400, 300, 200, 100});
-            //在notificationManager中创建通知渠道
-            getNotificationManager(context).createNotificationChannel(notificationChannel);
-        }
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, id);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, new Intent(Intent.ACTION_VIEW, Uri.parse("http://blog.csdn.net/itachi85/")), 0);
-        builder.setContentIntent(pendingIntent);
+        String notificationChannelId = createNotificationChannel(context);
+        NotificationCompat.MessagingStyle messagingStyle = new NotificationCompat.MessagingStyle(createPersonMe(context)).setConversationTitle("full_demo");
+        NotificationCompat.MessagingStyle.Message message = new NotificationCompat.MessagingStyle.Message("你好，我正在测试通知", 1528490645998l, createPersonHim(context));
+        messagingStyle.addMessage(message);
+        // 只有一条消息
+        messagingStyle.setGroupConversation(false);
+        Intent notifyIntent = new Intent(context, BaseTestActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
+        stackBuilder.addParentStack(BaseTestActivity.class);
+        stackBuilder.addNextIntent(notifyIntent);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+//        String replyLabel = context.getString(R.string.toolbar_title_setting);
+//        RemoteInput remoteInput = new RemoteInput.Builder(MessagingIntentService.EXTRA_REPLY)
+//                .setLabel(replyLabel)
+//                // Use machine learning to create responses based on previous messages.
+//                .setChoices(messagingStyleCommsAppData.getReplyChoicesBasedOnLastMessage())
+//                .build();
+
+//        PendingIntent replyActionPendingIntent;
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            Intent intent = new Intent(this, MessagingIntentService.class);
+//            intent.setAction(MessagingIntentService.ACTION_REPLY);
+//            replyActionPendingIntent = PendingIntent.getService(this, 0, intent, 0);
+//
+//        } else {
+//            replyActionPendingIntent = mainPendingIntent;
+//        }
+//        NotificationCompat.Action replyAction =
+//                new NotificationCompat.Action.Builder(
+//                        R.drawable.ic_reply_white_18dp,
+//                        replyLabel,
+//                        replyActionPendingIntent)
+//                        .addRemoteInput(remoteInput)
+//                        .setShowsUserInterface(false)
+//                        // Allows system to generate replies by context of conversation.
+//                        .setAllowGeneratedReplies(true)
+//                        .setSemanticAction(Action.SEMANTIC_ACTION_REPLY)
+//                        .build();
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context.getApplicationContext(), notificationChannelId);
+        builder.setStyle(messagingStyle);
+        builder.setContentTitle("demo应用");
+        builder.setContentText("我点击了主页面的按钮");
         builder.setSmallIcon(R.drawable.ic_launcher_background);
+        builder.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.demo_pic1));
+        builder.setContentIntent(pendingIntent);
+        builder.setDefaults(NotificationCompat.DEFAULT_ALL);
+        builder.setColor(ContextCompat.getColor(context.getApplicationContext(), R.color.colorPrimary));
+        builder.setCategory(Notification.CATEGORY_MESSAGE);
         builder.setAutoCancel(true);
-        builder.setContentTitle("我点击了主页面的按钮");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            builder.setGroupSummary(false).setGroup("group");
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            builder.setGroupSummary(false).setGroup("group");
+//        }
+        builder.addPerson(createPersonHim(context).getUri());
         Notification notification = builder.build();
         getNotificationManager(context).notify(randomNotifyId(), notification);
+    }
+
+    private static Person createPersonMe(Context context){
+        return new Person.Builder()
+                .setName("Me MacDonald")
+                .setKey("1234567890")
+                .setUri("tel:1234567890")
+                .setIcon(IconCompat.createWithResource(context, R.mipmap.demo_pic2))
+                .build();
+    }
+
+    private static Person createPersonHim(Context context){
+        return new Person.Builder()
+                        .setName("Wendy Wonda")
+                        .setKey("2233221122")
+                        .setUri("tel:2233221122")
+                        .setIcon(IconCompat.createWithResource(context, R.mipmap.ic_launcher_round))
+                        .build();
     }
 
     private static NotificationManager getNotificationManager(Context context) {
@@ -96,5 +144,19 @@ public class NotificationHelper {
 
     private static int randomNotifyId() {
         return 1 + (int) (Math.random() * 2147483646);
+    }
+
+    private static String createNotificationChannel(Context context){
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return null;
+        String channelId = "fullDemo";
+        CharSequence channelName = context.getString(R.string.app_name);
+        String channelDescription = "full_demo的版本O通知";
+        int channelLockScreenVisibility = NotificationCompat.VISIBILITY_PUBLIC;
+        NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT);
+        notificationChannel.setDescription(channelDescription);
+        notificationChannel.setLockscreenVisibility(channelLockScreenVisibility);
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.createNotificationChannel(notificationChannel);
+        return channelId;
     }
 }
