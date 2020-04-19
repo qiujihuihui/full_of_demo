@@ -2,7 +2,7 @@ package com.full.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.Toast;
@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     private void initViews() {
         mainLayout = findViewById(R.id.ctl_layout);
         Button clickBtn = findViewById(R.id.btn_click);
-        clickBtn.setOnClickListener(view -> showNotification());
+        clickBtn.setOnClickListener(view -> showSnackBar());
         Toolbar toolbar = findViewById(R.id.common_toolbar);
         toolbar.setTitle(R.string.toolbar_title_main_page);
         setSupportActionBar(toolbar);
@@ -94,5 +94,9 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("app_package", getPackageName());
         intent.putExtra("app_uid", getApplicationInfo().uid);
         startActivity(intent);
+    }
+
+    private void showSnackBar() {
+        Snackbar.make(mainLayout, "展示SnackBar", Snackbar.LENGTH_LONG).setAction("点击取消", view -> Toast.makeText(MainActivity.this, "已经取消了", Toast.LENGTH_SHORT).show()).setDuration(Snackbar.LENGTH_LONG).show();
     }
 }
