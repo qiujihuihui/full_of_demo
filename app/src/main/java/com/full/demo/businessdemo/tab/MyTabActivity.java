@@ -1,14 +1,21 @@
 package com.full.demo.businessdemo.tab;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.full.demo.R;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -18,6 +25,7 @@ public class MyTabActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,9 +33,47 @@ public class MyTabActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_tab);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setHomeAsUpIndicator(R.mipmap.pic_love);
+        actionBar.setDisplayHomeAsUpEnabled(true);
         viewPager = findViewById(R.id.viewpager);
         tabLayout = findViewById(R.id.layout_abs);
+        drawerLayout = findViewById(R.id.dl_main_layout);
+        NavigationView navigationView = findViewById(R.id.nv_main_navigation);
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(item -> {
+                item.setChecked(true);
+                String title = item.getTitle().toString();
+                Toast.makeText(MyTabActivity.this, title, Toast.LENGTH_SHORT).show();
+                drawerLayout.closeDrawers();
+                return true;
+            });
+        }
         initViewPage();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.tb_setting){
+            drawerLayout.openDrawer(GravityCompat.START);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     private void initViewPage() {

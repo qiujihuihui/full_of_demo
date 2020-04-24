@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_home"
+            android:icon="@mipmap/pic_love"
+            android:title="@string/nav_main_page"/>
+
+        <item android:id="@+id/nav_items"
+            android:icon="@mipmap/pic_love"
+            android:title="@string/nav_items"/>
+
+        <item android:id="@+id/nav_music"
+            android:icon="@mipmap/pic_love"
+            android:title="@string/nav_music"/>
+
+        <item android:id="@+id/nav_message"
+            android:icon="@mipmap/pic_love"
+            android:title="@string/nav_message"/>
+    </group>
+</menu>

@@ -11,4 +11,8 @@
     <string name="hint_login_username">请输入账号</string>
     <string name="hint_login_password">请输入密码</string>
     <string name="btn_login">登录</string>
+    <string name="nav_main_page">首页</string>
+    <string name="nav_items">事项</string>
+    <string name="nav_music">音乐</string>
+    <string name="nav_message">消息</string>
 </resources>
