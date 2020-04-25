@@ -36,7 +36,7 @@ public class RecyclerViewDemoFragment extends Fragment {
 
     private void initRecyclerView(){
 //        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         demoAdapter = new RecyclerDemoAdapter(getActivity(), titlesList);
         recyclerView.setAdapter(demoAdapter);

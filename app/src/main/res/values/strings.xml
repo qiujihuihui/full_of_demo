@@ -15,4 +15,6 @@
     <string name="nav_items">事项</string>
     <string name="nav_music">音乐</string>
     <string name="nav_message">消息</string>
+
+    <string name="demo_featured_item">这是一条测试显示的item，暂时没有网络请求的数据</string>
 </resources>

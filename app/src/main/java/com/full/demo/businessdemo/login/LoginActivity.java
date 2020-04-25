@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.full.demo.R;
-import com.full.demo.businessdemo.tab.MyTabActivity;
+import com.full.demo.main.MainActivity;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             usernameInputLayout.setErrorEnabled(false);
             pwdInputLayout.setErrorEnabled(false);
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(this, MyTabActivity.class));
+            startActivity(new Intent(this, MainActivity.class));
         }
     }
 }

@@ -5,6 +5,7 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="main_color">#56bd72</color>
+    <color name="common_text_color">#555555</color>
     <color name="white">#ffffff</color>
     <color name="off_white">#ffffdd</color>
     <color name="transparent">#00000000</color>

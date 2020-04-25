@@ -1,4 +1,4 @@
-package com.full.demo.businessdemo.manager;
+package com.full.demo.manager;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
