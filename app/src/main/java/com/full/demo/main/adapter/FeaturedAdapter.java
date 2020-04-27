@@ -34,12 +34,17 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
     @NonNull
     @Override
     public FeaturedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FeaturedViewHolder(LayoutInflater.from(context).inflate(R.layout.item_main_featured, parent, false));
+        View itemView = LayoutInflater.from(context).inflate(R.layout.item_main_featured, parent, false);
+        FeaturedViewHolder viewHolder = new FeaturedViewHolder(itemView);
+        x.view().inject(viewHolder, itemView);
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull FeaturedViewHolder holder, int position) {
-        holder.tvRight.setText(featuredBeans.get(position).getTitle());
+        if (holder.tvRight != null) {
+            holder.tvRight.setText(featuredBeans.get(position).getTitle());
+        }
     }
 
     @Override
@@ -56,7 +61,6 @@ public class FeaturedAdapter extends RecyclerView.Adapter<FeaturedAdapter.Featur
 
         public FeaturedViewHolder(@NonNull View itemView) {
             super(itemView);
-            x.view().inject(itemView);
         }
     }
 }
