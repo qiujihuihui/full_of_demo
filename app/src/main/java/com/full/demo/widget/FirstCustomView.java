@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.Nullable;
 
@@ -43,7 +44,18 @@ public class FirstCustomView extends View {
                 int offsetX = x - lastX;
                 int offsetY = y - lastY;
                 // user layout() to refresh new position
-                layout(getLeft() + offsetX, getTop() + offsetY, getRight() + offsetX, getBottom() + offsetY);
+                // one
+//                layout(getLeft() + offsetX, getTop() + offsetY, getRight() + offsetX, getBottom() + offsetY);
+
+                // two
+//                offsetLeftAndRight(offsetX);
+//                offsetTopAndBottom(offsetY);
+
+                // three
+                ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) getLayoutParams();
+                layoutParams.leftMargin = getLeft() + offsetX;
+                layoutParams.topMargin = getTop() + offsetY;
+                setLayoutParams(layoutParams);
                 break;
         }
         return true;
