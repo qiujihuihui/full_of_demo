@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.full.demo.R;
 import com.full.demo.businessdemo.recycleview.RecyclerViewDemoFragment;
 import com.full.demo.main.fragment.FeaturedFragment;
+import com.full.demo.main.fragment.FirstFragment;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Fragment> getFragments(){
         List<Fragment> fragments = new ArrayList<>();
-        fragments.add(new RecyclerViewDemoFragment());
+        fragments.add(new FirstFragment());
         fragments.add(new RecyclerViewDemoFragment());
         fragments.add(new RecyclerViewDemoFragment());
         fragments.add(new FeaturedFragment());

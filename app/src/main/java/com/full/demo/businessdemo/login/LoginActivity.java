@@ -2,6 +2,7 @@ package com.full.demo.businessdemo.login;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.full.demo.R;
 import com.full.demo.main.MainActivity;
+import com.full.demo.manager.PreferenceManager;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Matcher;
@@ -28,6 +30,18 @@ public class LoginActivity extends AppCompatActivity {
         pwdInputLayout = findViewById(R.id.til_password);
         Button btnSubmit = findViewById(R.id.btn_submit);
         btnSubmit.setOnClickListener(view -> login());
+        initView();
+    }
+
+    private void initView(){
+        String userName = PreferenceManager.getInstance().getLoginAccount();
+        String password = PreferenceManager.getInstance().getLoginPassword();
+        if (!TextUtils.isEmpty(userName)){
+            usernameInputLayout.getEditText().setText(userName);
+        }
+        if (!TextUtils.isEmpty(password)){
+            pwdInputLayout.getEditText().setText(password);
+        }
     }
 
     private boolean validatePassword(String password) {
@@ -60,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
             usernameInputLayout.setErrorEnabled(false);
             pwdInputLayout.setErrorEnabled(false);
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
+            PreferenceManager.getInstance().setLoginAccount(username);
+            PreferenceManager.getInstance().setLoginPassword(password);
             startActivity(new Intent(this, MainActivity.class));
         }
     }
