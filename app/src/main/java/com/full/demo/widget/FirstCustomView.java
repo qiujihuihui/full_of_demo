@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Scroller;
 
 import androidx.annotation.Nullable;
 
@@ -15,6 +16,7 @@ public class FirstCustomView extends View {
 
     private int lastX;
     private int lastY;
+    private Scroller mScroller;
 
     public FirstCustomView(Context context) {
         super(context);
@@ -22,6 +24,7 @@ public class FirstCustomView extends View {
 
     public FirstCustomView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
+        mScroller = new Scroller(context);
     }
 
     public FirstCustomView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -59,5 +62,23 @@ public class FirstCustomView extends View {
                 break;
         }
         return true;
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (mScroller.computeScrollOffset()){
+            ((View)getParent()).scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            invalidate();
+        }
+    }
+
+    public void smoothScrollTo(int destX, int destY, int duration){
+        int scrollX = getScrollX();
+        int deltaX = destX - scrollX;
+        int scrollY = getScrollY();
+        int deltaY = destY - scrollY;
+        mScroller.startScroll(scrollX, scrollY, deltaX, deltaY, duration);
+        invalidate();
     }
 }
