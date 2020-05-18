@@ -1,1 +1,1 @@
-include ':app', ':xutils', ':module_base'
+include ':app', ':xutils', ':module_base', ':module_demo'
