@@ -7,5 +7,10 @@ package com.module.demo;
  */
 public class RequestInfo
 {
+    private String apiName;
 
+    public String getApiName()
+    {
+        return apiName;
+    }
 }
