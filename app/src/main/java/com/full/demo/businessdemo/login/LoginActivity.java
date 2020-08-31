@@ -1,21 +1,25 @@
 package com.full.demo.businessdemo.login;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.full.demo.R;
 import com.full.demo.main.MainActivity;
 import com.full.demo.manager.PreferenceManager;
 import com.google.android.material.textfield.TextInputLayout;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,6 +35,19 @@ public class LoginActivity extends AppCompatActivity {
         Button btnSubmit = findViewById(R.id.btn_submit);
         btnSubmit.setOnClickListener(view -> login());
         initView();
+        requestPermissions();
+    }
+
+    @SuppressLint("CheckResult")
+    private void requestPermissions() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            RxPermissions rxPermissions = new RxPermissions(LoginActivity.this);
+            rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE).subscribe(aBoolean -> {
+                if (!aBoolean) {
+                    Toast.makeText(LoginActivity.this, "App未能获取全部需要的相关权限，部分功能可能无法正常使用", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void initView(){

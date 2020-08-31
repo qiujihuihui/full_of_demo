@@ -12,7 +12,7 @@ public class IdGenerator2 {
     private static SharedObjectStorage sStorage = new SharedObjectStorage();
 //    private static DistributedLock lock = new DistributedLock();
 
-    private IdGenerator2() {}
+    public IdGenerator2() {}
 
     public synchronized static IdGenerator2 getInstance(){
         if (instance == null) {

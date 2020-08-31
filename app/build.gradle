@@ -1,11 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
     defaultConfig {
         applicationId "com.full.demo"
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion 19
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -30,12 +32,12 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation project(':xutils')
-//    implementation project(':module_base')
+    api project(':module_demo')
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'me.tatarka:gradle-retrolambda:3.6.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette:1.0.0'
     implementation 'com.google.android.material:material:1.2.0-alpha06'
+    //noinspection GradleCompatible
     implementation 'com.android.support:design:28.0.0'
 }
