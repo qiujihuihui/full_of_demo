@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -13,6 +14,9 @@ import com.full.demo.R;
 import com.full.demo.main.MainActivity;
 import com.full.demo.manager.PreferenceManager;
 import com.google.android.material.textfield.TextInputLayout;
+import com.module.base.NetworkStateChangeReceiver;
+import com.module.base.net.NetStateChangeObserver;
+import com.module.base.net.NetworkType;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.regex.Matcher;
@@ -21,7 +25,9 @@ import java.util.regex.Pattern;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements NetStateChangeObserver
+{
+    private static final String TAG = "net";
 
     private TextInputLayout usernameInputLayout;
     private TextInputLayout pwdInputLayout;
@@ -36,6 +42,13 @@ public class LoginActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(view -> login());
         initView();
         requestPermissions();
+        NetworkStateChangeReceiver.registerReceiver(LoginActivity.this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        NetworkStateChangeReceiver.registerObserver(this);
     }
 
     @SuppressLint("CheckResult")
@@ -95,5 +108,29 @@ public class LoginActivity extends AppCompatActivity {
             PreferenceManager.getInstance().setLoginPassword(password);
             startActivity(new Intent(this, MainActivity.class));
         }
+    }
+
+    @Override
+    public void onNetDisconnected() {
+        Log.i(TAG, "net disconnected!");
+        Toast.makeText(LoginActivity.this, "网络已经断开", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNetConnected(NetworkType networkType) {
+        Log.i(TAG, "net is connected!");
+        Toast.makeText(LoginActivity.this, "网络已经连接成功", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        NetworkStateChangeReceiver.unRegisterObserver(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        NetworkStateChangeReceiver.unRegisterReceiver(LoginActivity.this);
     }
 }

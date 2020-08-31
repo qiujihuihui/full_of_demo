@@ -6,6 +6,8 @@ import android.content.Context;
 
 import org.xutils.x;
 
+import androidx.multidex.MultiDex;
+
 /**
  * 全局控制
  */
@@ -19,5 +21,6 @@ public class MyApp extends Application {
         super.onCreate();
         x.Ext.init(this);
         context = getApplicationContext();
+        MultiDex.install(this);
     }
 }
