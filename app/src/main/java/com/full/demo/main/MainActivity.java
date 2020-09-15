@@ -1,6 +1,7 @@
 package com.full.demo.main;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -33,6 +34,10 @@ public class MainActivity extends AppCompatActivity {
         x.view().inject(this);
         MainFragmentPageAdapter fragmentPageAdapter = new MainFragmentPageAdapter(this, getFragments());
         viewPager.setAdapter(fragmentPageAdapter);
+        MyLocationListener locationListener = new MyLocationListener(this, (latitude, longitude) -> {
+            Log.d("", "position has moved :" + latitude + "  -- " + longitude);
+        });
+        getLifecycle().addObserver(locationListener);
     }
 
     private List<Fragment> getFragments(){
