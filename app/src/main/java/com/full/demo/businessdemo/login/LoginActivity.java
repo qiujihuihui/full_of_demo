@@ -94,10 +94,10 @@ public class LoginActivity extends AppCompatActivity implements NetStateChangeOb
     private void login() {
         String username = usernameInputLayout.getEditText().getText().toString();
         String password = pwdInputLayout.getEditText().getText().toString();
-        if (!validateUserName(username)) {
+        if (/*!validateUserName(username)*/TextUtils.isEmpty(username)) {
             usernameInputLayout.setErrorEnabled(true);
             usernameInputLayout.setError("请输入正确的账号");
-        } else if (!validatePassword(password)) {
+        } else if (/*!validatePassword(password)*/TextUtils.isEmpty(password)) {
             pwdInputLayout.setErrorEnabled(true);
             pwdInputLayout.setError("密码字数过少！");
         } else {

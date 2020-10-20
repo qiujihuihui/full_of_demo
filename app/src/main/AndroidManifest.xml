@@ -24,7 +24,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".businessdemo.login.LoginActivity"
+            android:name=".main.DemoActivity"
             android:windowSoftInputMode="stateAlwaysVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,6 +32,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".businessdemo.login.LoginActivity"/>
         <activity android:name=".main.MainActivity" />
         <activity android:name=".businessdemo.BaseTestActivity" />
         <activity android:name=".businessdemo.tab.MyTabActivity"/>

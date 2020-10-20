@@ -3,10 +3,6 @@ package com.full.demo.main;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
-
 import com.full.demo.R;
 import com.full.demo.businessdemo.recycleview.RecyclerViewDemoFragment;
 import com.full.demo.main.fragment.FeaturedFragment;
@@ -18,6 +14,10 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager2.widget.ViewPager2;
 
 /**
  * 主页，嵌套各个fragment
@@ -34,11 +34,21 @@ public class MainActivity extends AppCompatActivity {
         x.view().inject(this);
         MainFragmentPageAdapter fragmentPageAdapter = new MainFragmentPageAdapter(this, getFragments());
         viewPager.setAdapter(fragmentPageAdapter);
-        MyLocationListener locationListener = new MyLocationListener(this, (latitude, longitude) -> {
-            Log.d("", "position has moved :" + latitude + "  -- " + longitude);
-        });
         getLifecycle().addObserver(locationListener);
     }
+
+    MyLocationListener locationListener = new MyLocationListener(new MyLocationListener.OnLocationChangeListener()
+    {
+        @Override
+        public void onChanged(double latitude, double longitude) {
+            Log.d("LocationListener", "position has moved :" + latitude + "  -- " + longitude);
+        }
+
+        @Override
+        public void positionChanged(String message) {
+            Log.d("LocationListener", message);
+        }
+    });
 
     private List<Fragment> getFragments(){
         List<Fragment> fragments = new ArrayList<>();
