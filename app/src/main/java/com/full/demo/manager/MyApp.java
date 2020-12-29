@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+
 import org.xutils.x;
 
 import androidx.multidex.MultiDex;
@@ -11,8 +13,8 @@ import androidx.multidex.MultiDex;
 /**
  * 全局控制
  */
-public class MyApp extends Application {
-
+public class MyApp extends Application
+{
     @SuppressLint("StaticFieldLeak")
     public static Context context;
 
@@ -22,5 +24,6 @@ public class MyApp extends Application {
         x.Ext.init(this);
         context = getApplicationContext();
         MultiDex.install(this);
+        Fresco.initialize(this);
     }
 }

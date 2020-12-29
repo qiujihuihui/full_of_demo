@@ -40,6 +40,11 @@ public class LoginActivity extends AppCompatActivity implements NetStateChangeOb
         pwdInputLayout = findViewById(R.id.til_password);
         Button btnSubmit = findViewById(R.id.btn_submit);
         btnSubmit.setOnClickListener(view -> login());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         initView();
         requestPermissions();
         NetworkStateChangeReceiver.registerReceiver(LoginActivity.this);
@@ -55,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements NetStateChangeOb
     private void requestPermissions() {
         if (Build.VERSION.SDK_INT >= 23) {
             RxPermissions rxPermissions = new RxPermissions(LoginActivity.this);
-            rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE).subscribe(aBoolean -> {
+            rxPermissions.request(Manifest.permission.CAMERA, Manifest.permission.READ_PHONE_STATE, Manifest.permission.WRITE_EXTERNAL_STORAGE).subscribe(aBoolean -> {
                 if (!aBoolean) {
                     Toast.makeText(LoginActivity.this, "App未能获取全部需要的相关权限，部分功能可能无法正常使用", Toast.LENGTH_SHORT).show();
                 }
@@ -63,13 +68,13 @@ public class LoginActivity extends AppCompatActivity implements NetStateChangeOb
         }
     }
 
-    private void initView(){
+    private void initView() {
         String userName = PreferenceManager.getInstance().getLoginAccount();
         String password = PreferenceManager.getInstance().getLoginPassword();
-        if (!TextUtils.isEmpty(userName)){
+        if (!TextUtils.isEmpty(userName)) {
             usernameInputLayout.getEditText().setText(userName);
         }
-        if (!TextUtils.isEmpty(password)){
+        if (!TextUtils.isEmpty(password)) {
             pwdInputLayout.getEditText().setText(password);
         }
     }
@@ -80,9 +85,6 @@ public class LoginActivity extends AppCompatActivity implements NetStateChangeOb
 
     /**
      * 6-16位数字字母混合,不能全为数字,不能全为字母,首位不能为数字
-     *
-     * @param username
-     * @return
      */
     private boolean validateUserName(String username) {
         String regex = "^(?![0-9])(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$";

@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- 向SDCard写入数据权限 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
     <!-- 权限级别: normal -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -23,8 +27,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
+<!--        <provider
+            android:name="leakcanary.internal.AppWatcherInstaller$MainProcess"
+            android:authorities="${applicationId}.leakcanary-installer"
+            android:exported="false" />-->
+
         <activity
-            android:name=".main.DemoActivity"
+            android:name=".businessdemo.login.LoginActivity"
             android:windowSoftInputMode="stateAlwaysVisible|adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +41,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".businessdemo.login.LoginActivity"/>
         <activity android:name=".main.MainActivity" />
         <activity android:name=".businessdemo.BaseTestActivity" />
         <activity android:name=".businessdemo.tab.MyTabActivity"/>

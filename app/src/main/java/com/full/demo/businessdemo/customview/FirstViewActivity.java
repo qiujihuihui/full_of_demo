@@ -6,9 +6,6 @@ import android.animation.PropertyValuesHolder;
 import android.os.Bundle;
 import android.view.View;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.full.demo.R;
 import com.full.demo.widget.FirstCustomView;
 
@@ -16,11 +13,15 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+
 /**
  * 自定义view的页面
  */
 @ContentView(R.layout.activity_first_view)
-public class FirstViewActivity extends AppCompatActivity {
+public class FirstViewActivity extends AppCompatActivity
+{
 
     @ViewInject(R.id.custom_view)
     FirstCustomView customView;
@@ -36,9 +37,11 @@ public class FirstViewActivity extends AppCompatActivity {
         super.onStart();
 //        customView.smoothScrollTo(-400, -400, 5000);
         startShakeByPropertyAnim(customView, 0.5f, 0.8f, 5.0f, 2000);
+//        LeakThread leakThread = new LeakThread();
+//        leakThread.start();
     }
 
-    private void startShakeByPropertyAnim(View view, float scaleSmall, float scaleLarge, float shakeDegrees, long duration){
+    private void startShakeByPropertyAnim(View view, float scaleSmall, float scaleLarge, float shakeDegrees, long duration) {
         if (view == null) return;
         //TODO 验证参数的有效性
 
@@ -77,4 +80,20 @@ public class FirstViewActivity extends AppCompatActivity {
         objectAnimator.setDuration(duration);
         objectAnimator.start();
     }
+
+    // test leakCanary
+//    class LeakThread extends Thread
+//    {
+//        @Override
+//        public void run() {
+//            super.run();
+//            try {
+//                CommonUtil.testDemo(FirstViewActivity.this);
+//                Thread.sleep(6 * 60 * 1000);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
+
 }
