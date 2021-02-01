@@ -1,1 +1,1 @@
-include ':app', ':xutils', ':module_base', ':module_demo'
+include ':app', ':lib_xutils', ':module_common', ':module_patient'

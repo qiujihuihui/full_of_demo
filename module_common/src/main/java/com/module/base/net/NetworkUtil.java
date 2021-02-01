@@ -28,9 +28,9 @@ public class NetworkUtil
                 netType = NetworkType.NETWORK_WIFI;
             } else if (info.getType() == ConnectivityManager.TYPE_MOBILE) {
                 switch (info.getSubtype()) {
-                    case TelephonyManager.NETWORK_TYPE_NR:
-                        netType = NetworkType.NETWORK_5G;
-                        break;
+//                    case TelephonyManager.NETWORK_TYPE_NR:
+//                        netType = NetworkType.NETWORK_5G;
+//                        break;
 
                     case TelephonyManager.NETWORK_TYPE_TD_SCDMA:
                     case TelephonyManager.NETWORK_TYPE_EVDO_A:
