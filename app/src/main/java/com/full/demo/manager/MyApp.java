@@ -21,8 +21,9 @@ public class MyApp extends Application
     @Override
     public void onCreate() {
         super.onCreate();
-        x.Ext.init(this);
         context = getApplicationContext();
+        x.Ext.init(this);
+        x.Ext.setDebug(true);
         MultiDex.install(this);
         Fresco.initialize(this);
     }

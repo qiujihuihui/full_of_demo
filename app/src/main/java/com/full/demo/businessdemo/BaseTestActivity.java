@@ -17,7 +17,7 @@ public class BaseTestActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_base_test);
+        setContentView(R.layout.activity_test_binder);
         testRecyclerViewDemo();
     }
 

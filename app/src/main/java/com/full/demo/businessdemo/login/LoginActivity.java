@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.module.base.NetworkStateChangeReceiver;
 import com.module.base.net.NetStateChangeObserver;
 import com.module.base.net.NetworkType;
+import com.module.demo.binder.TestBinderActivity;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.regex.Matcher;
@@ -108,7 +109,7 @@ public class LoginActivity extends AppCompatActivity implements NetStateChangeOb
             Toast.makeText(this, "登录成功", Toast.LENGTH_SHORT).show();
             PreferenceManager.getInstance().setLoginAccount(username);
             PreferenceManager.getInstance().setLoginPassword(password);
-            startActivity(new Intent(this, MainActivity.class));
+            startActivity(new Intent(this, TestBinderActivity.class));
         }
     }
 
