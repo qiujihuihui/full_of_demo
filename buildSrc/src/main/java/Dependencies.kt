@@ -1,5 +1,4 @@
 // all the libraries of all the modules in the project
-
 object Versions {
     const val gradle_version = "3.6.1"
     const val gradle_bintray_plugin = "1.8.4"
@@ -30,6 +29,13 @@ object Versions {
     const val guava = "29.0-jre"
     const val multidex = "2.0.1"
     const val text_runner = "1.3.0"
+    const val okHttp = "3.11.0"
+    const val coroutinesCore = "1.4.3"
+    const val coroutinesAndroid = "1.4.3"
+    const val coroutinesJDK8 = "1.4.3"
+    const val view_model_ktx = "2.2.0"
+    const val run_time_ktx = "2.2.0"
+    const val live_data_ktx = "2.2.0"
 }
 
 object Libs {
@@ -62,4 +68,11 @@ object Libs {
     val guava = "com.google.guava:guava:${Versions.guava}"
     val multidex = "androidx.multidex:multidex:${Versions.multidex}"
     val text_runner = "androidx.test:runner:${Versions.text_runner}"
+    val okHttp3 = "com.squareup.okhttp3:okhttp:${Versions.okHttp}"
+    val coroutines_core = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutinesCore}"
+    val coroutines_android = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutinesAndroid}"
+    val coroutines_jdk8 = "org.jetbrains.kotlinx:kotlinx-coroutines-jdk8:${Versions.coroutinesJDK8}"
+    val view_model_ktx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.view_model_ktx}"
+    val runtime_time_ktx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.run_time_ktx}"
+    val live_data_ktx = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.live_data_ktx}"
 }

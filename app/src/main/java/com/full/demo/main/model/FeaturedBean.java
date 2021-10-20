@@ -2,7 +2,8 @@ package com.full.demo.main.model;
 
 import com.full.demo.base.BaseEntity;
 
-public class FeaturedBean extends BaseEntity {
+public class FeaturedBean extends BaseEntity
+{
 
     private String title;
 

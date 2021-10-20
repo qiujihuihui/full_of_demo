@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.full.demo.R;
-import com.full.demo.main.MainActivity;
 import com.full.demo.manager.PreferenceManager;
 import com.google.android.material.textfield.TextInputLayout;
 import com.module.base.NetworkStateChangeReceiver;
@@ -32,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements NetStateChangeOb
 
     private TextInputLayout usernameInputLayout;
     private TextInputLayout pwdInputLayout;
+    private Button btnSubmit;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,22 +39,16 @@ public class LoginActivity extends AppCompatActivity implements NetStateChangeOb
         setContentView(R.layout.activity_login);
         usernameInputLayout = findViewById(R.id.til_username);
         pwdInputLayout = findViewById(R.id.til_password);
-        Button btnSubmit = findViewById(R.id.btn_submit);
-        btnSubmit.setOnClickListener(view -> login());
+        btnSubmit = findViewById(R.id.btn_submit);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        btnSubmit.setOnClickListener(view -> login());
         initView();
         requestPermissions();
         NetworkStateChangeReceiver.registerReceiver(LoginActivity.this);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        NetworkStateChangeReceiver.registerObserver(this);
     }
 
     @SuppressLint("CheckResult")
@@ -129,11 +123,5 @@ public class LoginActivity extends AppCompatActivity implements NetStateChangeOb
     protected void onStop() {
         super.onStop();
         NetworkStateChangeReceiver.unRegisterObserver(this);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        NetworkStateChangeReceiver.unRegisterReceiver(LoginActivity.this);
     }
 }

@@ -3,7 +3,10 @@ package com.module.base.calculation;
 import android.os.Build;
 import android.os.Debug;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import androidx.annotation.RequiresApi;
@@ -56,6 +59,23 @@ public class CalculateDemo
         int repeatNum = findRepeatNum(numbers);
         if (repeatNum != -1) {
             System.out.print("repeat num is: " + repeatNum);
+        }
+
+        List<Integer> myAccounts = new ArrayList<>();
+        calculateAllMoney(myAccounts);
+    }
+
+    public static double calculateAllMoney(List<? extends Number> accounts) {
+        double s = 0.0;
+        for (Number a : accounts) {
+            s += a.doubleValue();
+        }
+        return s;
+    }
+
+    class Parser<T extends Exception> {
+        public void parse(File file) throws T {
+
         }
     }
 }

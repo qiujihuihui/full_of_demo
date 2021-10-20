@@ -5,6 +5,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
+// 开启协程
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
+
 android {
     compileSdkVersion AndroidConfig.compileSdkVersion
     buildToolsVersion AndroidConfig.buildToolsVersion
@@ -17,11 +24,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = [ AROUTER_MODULE_NAME : project.getName() ]
-            }
-        }
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = [AROUTER_MODULE_NAME: project.getName()]
+//            }
+//        }
     }
 
     buildTypes {
@@ -72,4 +79,11 @@ dependencies {
     api Libs.multidex
 
     api project(':lib_xutils')
+    implementation Libs.okHttp3
+    api Libs.coroutines_core
+    api Libs.coroutines_android
+    api Libs.coroutines_jdk8
+    api Libs.view_model_ktx
+    api Libs.runtime_time_ktx
+    api Libs.live_data_ktx
 }
